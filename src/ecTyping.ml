@@ -3444,7 +3444,7 @@ and trans_form_or_pattern env mode ?mv ?ps ue pf tt =
         unify_or_fail env ue event.pl_loc ~expct:tbool event'.f_ty;
         f_pr memid fpath (f_tuple args) event'
 
-    | PFhoareF (pre, gp, post) ->
+    | PFhoareF (pre, gp, post, inter_assert) ->
         if mode <> `Form then
           tyerror f.pl_loc env (NotAnExpression `Logic);
 
