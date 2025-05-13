@@ -1202,13 +1202,13 @@ hoare_bd_cmp :
   cp=codepos1 RARROW f=form_r(P)
     { (cp, f) }
 
-%inline inter_assert(P):
+%inline inter_assum(P):
   /* empty list */                         { [] }
 | PIPE plist1(pair_codepos_form(P), COMMA) { $2 }
 
 hoare_body(P):
-  mp=loc(fident) COLON pre=form_r(P) LONGARROW post=form_r(P) inter_assert=inter_assert(P)
-    { PFhoareF (pre, mp, post, inter_assert) }
+  mp=loc(fident) COLON pre=form_r(P) LONGARROW post=form_r(P) inter_assum=inter_assum(P)
+    { PFhoareF (pre, mp, post, inter_assum) }
 
 ehoare_body(P):
   mp=loc(fident) COLON pre=form_r(P) LONGARROW
