@@ -234,6 +234,7 @@ and sHoareF = {
   hf_pr : form;
   hf_f  : EcPath.xpath;
   hf_po : form;
+  hf_ia : form list;
 }
 
 and sHoareS = {

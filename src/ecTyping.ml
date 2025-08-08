@@ -1471,6 +1471,16 @@ let trans_gamepath (env : EcEnv.env) gp =
         EcPath.xpath mpath funsymb
 
 (* -------------------------------------------------------------------- *)
+(* WARNING: pcodepos1 is considered as a simple integer *)
+(*
+  1. check whether every instruction in the program is an assignment;
+  2. check whether the positions of internal assumptions are unique, and a simple integer.
+  3. set the assumption of the empty position as true
+*)
+let trans_assum (env : EcEnv.env) (gp : xpath) (inter_assum : (pcodepos1 * pformula) list) =
+  let sz = 
+
+(* -------------------------------------------------------------------- *)
 let trans_oracle (env : EcEnv.env) (m,f) =
   let msymbol = mk_loc (loc m) [m,None] in
   let (mpath, sig_) = trans_msymbol env msymbol in
@@ -3452,9 +3462,10 @@ and trans_form_or_pattern env mode ?mv ?ps ue pf tt =
         let penv, qenv = EcEnv.Fun.hoareF fpath env in
         let pre'  = transf penv pre in
         let post' = transf qenv post in
+        let inter_assum' = trans_assum env fpath inter_assum in
           unify_or_fail penv ue pre.pl_loc  ~expct:tbool pre' .f_ty;
           unify_or_fail qenv ue post.pl_loc ~expct:tbool post'.f_ty;
-          f_hoareF pre' fpath post'
+          f_hoareF pre' fpath post' inter_assum
 
     | PFehoareF (pre, gp, post) ->
         if mode <> `Form then
